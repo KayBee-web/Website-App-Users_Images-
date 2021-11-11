@@ -21,19 +21,18 @@ public partial class View_n_Share : System.Web.UI.Page
         string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
         SqlConnection con = new SqlConnection(sqlmain);
 
+        con.Open();
+
         string view = "select * from ImageData";
 
         SqlCommand com = new SqlCommand(view, con);
-        con.Open();
-
-        SqlDataAdapter info = new SqlDataAdapter();
+        SqlDataAdapter info = new SqlDataAdapter(com);
         info.SelectCommand = com;
         DataTable ds = new DataTable();
         info.Fill(ds);
-        //GridView1.DataSource = ds;
-        GridView1.Visible = true;
+        GridView1.DataSource = ds;
         GridView1.DataBind();
-
+        GridView1.Visible = true;
         con.Close();
     }
 }

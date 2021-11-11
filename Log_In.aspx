@@ -39,7 +39,9 @@
                 <td>
                     <asp:TextBox ID="usernametxt" runat="server" Width="202px"></asp:TextBox>
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="usernametxt" ErrorMessage="Enter your username" ForeColor="Red"></asp:RequiredFieldValidator>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style2">
@@ -48,7 +50,9 @@
                 <td>
                     <asp:TextBox ID="passwordtxt" runat="server" TextMode="Password" Width="203px"></asp:TextBox>
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="passwordtxt" ErrorMessage="Enter your password" ForeColor="Red"></asp:RequiredFieldValidator>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style3">
