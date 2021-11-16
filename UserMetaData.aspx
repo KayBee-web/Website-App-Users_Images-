@@ -16,6 +16,7 @@
                     <asp:BoundField DataField="ImageName" HeaderText="ImageName" SortExpression="ImageName" />
                     <asp:BoundField DataField="ImagePath" HeaderText="ImagePath" SortExpression="ImagePath" />
                     <asp:BoundField DataField="Date&amp;Time" HeaderText="Date&amp;Time" SortExpression="Date&amp;Time" />
+                    
                 </Columns>
             </asp:GridView>
         </div>

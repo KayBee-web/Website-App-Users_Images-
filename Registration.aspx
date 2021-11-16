@@ -97,7 +97,9 @@
                 <td>
                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Register" Width="142px" />
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Log_In.aspx">Log-In</asp:HyperLink>
+                </td>
             </tr>
         </table>
     </form>

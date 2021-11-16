@@ -38,7 +38,7 @@
         </table>
         <div>
         </div>
-        <asp:HyperLink ID="HyperLink1" runat="server" Font-Bold="True" Font-Size="15pt" ForeColor="Blue" NavigateUrl="~/View n Share.aspx">Click to View and Share pictures</asp:HyperLink>
+        <asp:HyperLink ID="HyperLink1" runat="server" Font-Bold="True" Font-Size="15pt" ForeColor="Blue" NavigateUrl="~/MainPage.aspx">Click to View and Share pictures</asp:HyperLink>
     </form>
 </body>
 </html>

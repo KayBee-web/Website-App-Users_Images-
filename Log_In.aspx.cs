@@ -13,7 +13,22 @@ public partial class Log_In : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        usernametxt.Focus();
+    }
+    public string Decryption(string encrstring)
+    {
+        byte[] b;
+        string decrypted;
+        try
+        {
+            b = Convert.FromBase64String(encrstring);
+            decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+        }
+        catch(FormatException message)
+        {
+            decrypted = "";
+        }
+        return decrypted;
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -34,7 +49,7 @@ public partial class Log_In : System.Web.UI.Page
             SqlCommand passcom = new SqlCommand(checkpassword, con);
             string password = passcom.ExecuteScalar().ToString().Replace(" ", "");
 
-            if (password == passwordtxt.Text)
+            if (Decryption(password) == passwordtxt.Text)
             {
                 Session["New"] = usernametxt.Text;
                 Response.Redirect("UserImages.aspx");

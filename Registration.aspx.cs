@@ -11,6 +11,7 @@ public partial class Registration : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Usernametxt.Focus();
         // used to check if the user exist already or not.
         if (IsPostBack)
         {
@@ -30,6 +31,12 @@ public partial class Registration : System.Web.UI.Page
         }
 
         }
+    public string Encryption(string strEncryp)
+    {
+        byte[] b = System.Text.ASCIIEncoding.ASCII.GetBytes(strEncryp);
+        string encrypted = Convert.ToBase64String(b);
+        return encrypted;
+    }
 
         protected void Button1_Click(object sender, EventArgs e)
     {
@@ -49,7 +56,7 @@ public partial class Registration : System.Web.UI.Page
             com.Parameters.AddWithValue("@id", newguid.ToString());
             com.Parameters.AddWithValue("@username", Usernametxt.Text);
             com.Parameters.AddWithValue("@email", Emailtxt.Text);
-            com.Parameters.AddWithValue("@pass", Passwordtxt.Text);
+            com.Parameters.AddWithValue("@pass", Encryption(Passwordtxt.Text));
 
             com.ExecuteNonQuery();
 
