@@ -16,11 +16,12 @@ public partial class View_n_Share : System.Web.UI.Page
     {
 
         GridView1.Visible = false;
-        DropDownList1.Focus();
+        Button2.Visible = false;
+        Label1.Visible = false;
+        usertxt.Visible = false;
 
     }
-
-    protected void Button1_Click(object sender, EventArgs e)
+    public void postback()    //this method displays information on gridview
     {
         string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
         SqlConnection con = new SqlConnection(sqlmain);
@@ -40,6 +41,11 @@ public partial class View_n_Share : System.Web.UI.Page
         con.Close();
     }
 
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        postback();  //display all values
+    }
+
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
         LinkButton download = sender as LinkButton;
@@ -50,11 +56,63 @@ public partial class View_n_Share : System.Web.UI.Page
         Response.TransmitFile(Server.MapPath(downloadimage));
         Response.End();
 
+    
     }
+
+
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
         
+        LinkButton delete = sender as LinkButton;
+        GridViewRow deleterow = delete.NamingContainer as GridViewRow;
+
+        
+        string deleteimage = GridView1.DataKeys[deleterow.RowIndex].Value.ToString();
+
+        string sqlmain1 = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
+        SqlConnection constr = new SqlConnection(sqlmain1);
+        constr.Open();
+        SqlCommand com = new SqlCommand("delete from ImageData where ImagePath = '"+ deleteimage + "'",constr);
+        File.Delete(Server.MapPath(deleteimage));
+        com.ExecuteNonQuery();
+
+        Response.Write("Image and its Metadata is deleted successfully!");
+        postback();  //display all values
+        constr.Close();
     }
 
+    protected void LinkButton3_Click(object sender, EventArgs e)
+    {
+        Button2.Visible = true;
+        Label1.Visible = true;
+        usertxt.Visible = true;
+    }
 
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        string date = DateTime.Now.ToString();
+
+        LinkButton edit = sender as LinkButton;
+        GridViewRow editrow = edit.NamingContainer as GridViewRow;
+
+
+        string deleteimage = GridView1.DataKeys[editrow.RowIndex].Value.ToString();
+
+        string sqlmain2 = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
+        SqlConnection constr1 = new SqlConnection(sqlmain2);
+        constr1.Open();
+        SqlCommand com1 = new SqlCommand("update ImageData set ImageName =@name ,Date&Time =@date  where ImagePath = '" + deleteimage + "' ", constr1);
+
+        com1.Parameters.AddWithValue("@date", date);
+        com1.Parameters.AddWithValue("@name", usertxt.Text);
+        com1.ExecuteNonQuery();
+
+        Response.Write("Metadata is edited successfully!");
+        postback();  //display all values
+        constr1.Close();
+
+        Button2.Visible = false;
+        Label1.Visible = false;
+        usertxt.Visible = false;
+    }
 }

@@ -18,38 +18,45 @@ public partial class UserImages : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        string date = DateTime.Now.ToString(); 
-         if (UpLoadImage.HasFile)
+    string date = DateTime.Now.ToString(); 
+         if (UpLoadImage.HasFile )
          {
-            string savedimage = UpLoadImage.FileName;
-            UpLoadImage.PostedFile.SaveAs(Server.MapPath("~/images/" + savedimage));
-            string imagepath = "~/images/" + savedimage.ToString();
+            string imageextension = System.IO.Path.GetExtension(UpLoadImage.FileName);
+            if(imageextension.ToLower() == ".jpg" || imageextension.ToLower() == ".bmp" || imageextension.ToLower() == ".gif" || imageextension.ToLower() == ".png")
+            {
+                string savedimage = UpLoadImage.FileName;
+                UpLoadImage.PostedFile.SaveAs(Server.MapPath("~/images/" + savedimage));
+                string imagepath = "~/images/" + savedimage.ToString();
 
-             string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
-             SqlConnection con = new SqlConnection(sqlmain);
+                string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
+                SqlConnection con = new SqlConnection(sqlmain);
 
-             con.Open();
+                con.Open();
 
-             string sqlimg = "insert into ImageData([ImageName],[ImagePath],[Date&Time]) values(@name,@path,@date)";
-             SqlCommand com = new SqlCommand(sqlimg, con);
+                string sqlimg = "insert into ImageData([ImageName],[ImagePath],[Date&Time]) values(@name,@path,@date)";
+                SqlCommand com = new SqlCommand(sqlimg, con);
 
-            com.Parameters.AddWithValue("@name", savedimage);
-            com.Parameters.AddWithValue("@path", imagepath);
-            com.Parameters.AddWithValue("@date", date);
+                com.Parameters.AddWithValue("@name", savedimage);
+                com.Parameters.AddWithValue("@path", imagepath);
+                com.Parameters.AddWithValue("@date", date);
 
-            com.ExecuteNonQuery();
+                com.ExecuteNonQuery();
 
-             Response.Write("Image and it path is saved successfully!");
+                Response.Write("Image and it path is saved successfully!");
 
-             con.Close();
+                con.Close();
 
-         }
+            }
+            else
+            {
+                Response.Write("File uploaded is not imagine!");
+            }
+        }
+            
          else
          {
              Response.Write("Image and path is not successful!");
          }
-        
-
-        
+           
     }
 }

@@ -15,6 +15,9 @@ public partial class Log_In : System.Web.UI.Page
     {
         usernametxt.Focus();
     }
+
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+
     public string Decryption(string encrstring)
     {
         byte[] b;
@@ -33,8 +36,7 @@ public partial class Log_In : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-
+       
         con.Open();
         string checkuser = "select count(*) from UserData where UserName = '" + usernametxt.Text + "'";
         SqlCommand com = new SqlCommand(checkuser, con);
