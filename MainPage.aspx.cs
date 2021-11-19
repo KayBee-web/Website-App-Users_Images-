@@ -14,16 +14,12 @@ public partial class View_n_Share : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        GridView1.Visible = false;
-    }
-    public void postback()    //this method displays information on gridview of the user logged in
-    {
-        string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
-        SqlConnection con = new SqlConnection(sqlmain);
-       
+            string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
+            SqlConnection con = new SqlConnection(sqlmain);
+
             con.Open();
 
-            string view = "select * from ImageData where UserName = " + Session["Username"].ToString();
+        string view = "select * from ImageData where UserName = " + Session["Username"].ToString() ;
 
             SqlCommand com = new SqlCommand(view, con);
             SqlDataAdapter info = new SqlDataAdapter(com);
@@ -32,15 +28,10 @@ public partial class View_n_Share : System.Web.UI.Page
             info.Fill(ds);
             GridView1.DataSource = ds;
             GridView1.DataBind();
-            GridView1.Visible = true;
             con.Close();
-       
+
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        postback();  //display images of user logged in
-    }
 
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
@@ -73,9 +64,58 @@ public partial class View_n_Share : System.Web.UI.Page
         com.ExecuteNonQuery();
 
         Response.Write("Image and its Metadata is deleted successfully!");
-        postback();  //display all values
         constr.Close();
     }
 
-    
+
+
+    protected void LinkButton3_Click(object sender, EventArgs e)
+    {
+        LinkButton property = sender as LinkButton;
+        GridViewRow propertyrow = property.NamingContainer as GridViewRow;
+
+
+        string propertyimage = GridView1.DataKeys[propertyrow.RowIndex].Value.ToString();
+
+        string sqlmain1 = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
+        SqlConnection constr = new SqlConnection(sqlmain1);
+        constr.Open();
+        SqlCommand com = new SqlCommand("select * from ImageData where ImagePath = '" + propertyimage + "'", constr);
+
+        SqlDataAdapter prop = new SqlDataAdapter(com);
+        prop.SelectCommand = com;
+        DataTable ds = new DataTable();
+        prop.Fill(ds);
+        GridView1.DataSource = ds;
+        GridView1.DataBind();
+       
+        constr.Close();
+
+        Response.Redirect("UserMetaData.aspx");
+    }
+
+    protected void LinkButton4_Click(object sender, EventArgs e)
+    {
+        string sharedimage = "ImageShared.jpg";
+        LinkButton share = sender as LinkButton;
+        GridViewRow sharerow = share.NamingContainer as GridViewRow;
+
+
+        string shareimage = GridView1.DataKeys[sharerow.RowIndex].Value.ToString();
+
+        string sqlmain1 = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
+        SqlConnection constr = new SqlConnection(sqlmain1);
+
+        constr.Open();
+
+        string sqlimg = "insert into ImageData([SharedImage]) values(@shared)";
+        SqlCommand com = new SqlCommand(sqlimg, constr);
+
+        com.Parameters.AddWithValue("@shared", sharedimage);
+        com.ExecuteNonQuery();
+
+        Response.Write("Image and it path is shared successfully!");
+
+        constr.Close();
+    }
 }

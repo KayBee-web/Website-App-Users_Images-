@@ -42,7 +42,19 @@
                                                  <ItemTemplate>
                                                      <asp:LinkButton ID="LinkButton2" runat="server" text="Delete" Onclick="LinkButton2_Click">Delete</asp:LinkButton>
                                                  </ItemTemplate>
-                                             </asp:TemplateField>                                           
+                                             </asp:TemplateField>      
+                                            
+                                             <asp:TemplateField HeaderText="Properties">
+                                                 <ItemTemplate>
+                                                     <asp:LinkButton ID="LinkButton3" runat="server" text="Properties" OnClick="LinkButton3_Click">Properties</asp:LinkButton>
+                                                 </ItemTemplate>
+                                             </asp:TemplateField>  
+
+                                            <asp:TemplateField HeaderText="Share">
+                                                <ItemTemplate>
+                                                     <asp:LinkButton ID="LinkButton4" runat="server" text="Share" Onclick="LinkButton4_Click">Share</asp:LinkButton>
+                                                 </ItemTemplate>
+                                             </asp:TemplateField>
              
                                         </Columns>
                                         <EmptyDataTemplate>
@@ -51,7 +63,6 @@
                                     </asp:GridView>
                                     &nbsp;</td>
                                 <td>
-                                    <asp:Button ID="Button1" runat="server" Text="View " Width="105px" OnClick="Button1_Click" Height="41px" />
                                     <br />
                                     <br />
                                     <br />

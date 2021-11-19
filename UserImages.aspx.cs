@@ -40,8 +40,9 @@ public partial class UserImages : System.Web.UI.Page
                     com.Parameters.AddWithValue("@name", savedimage);
                     com.Parameters.AddWithValue("@path", imagepath);
                     com.Parameters.AddWithValue("@date", date);
-            
-               
+                
+
+
 
                 com.ExecuteNonQuery();
 
