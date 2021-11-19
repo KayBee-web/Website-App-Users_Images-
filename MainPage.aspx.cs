@@ -14,36 +14,32 @@ public partial class View_n_Share : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         GridView1.Visible = false;
-        Button2.Visible = false;
-        Label1.Visible = false;
-        usertxt.Visible = false;
-
     }
-    public void postback()    //this method displays information on gridview
+    public void postback()    //this method displays information on gridview of the user logged in
     {
         string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
         SqlConnection con = new SqlConnection(sqlmain);
+       
+            con.Open();
 
-        con.Open();
+            string view = "select * from ImageData where UserName = " + Session["Username"].ToString();
 
-        string view = "select * from ImageData";
-
-        SqlCommand com = new SqlCommand(view, con);
-        SqlDataAdapter info = new SqlDataAdapter(com);
-        info.SelectCommand = com;
-        DataTable ds = new DataTable();
-        info.Fill(ds);
-        GridView1.DataSource = ds;
-        GridView1.DataBind();
-        GridView1.Visible = true;
-        con.Close();
+            SqlCommand com = new SqlCommand(view, con);
+            SqlDataAdapter info = new SqlDataAdapter(com);
+            info.SelectCommand = com;
+            DataTable ds = new DataTable();
+            info.Fill(ds);
+            GridView1.DataSource = ds;
+            GridView1.DataBind();
+            GridView1.Visible = true;
+            con.Close();
+       
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        postback();  //display all values
+        postback();  //display images of user logged in
     }
 
     protected void LinkButton1_Click(object sender, EventArgs e)
@@ -81,38 +77,5 @@ public partial class View_n_Share : System.Web.UI.Page
         constr.Close();
     }
 
-    protected void LinkButton3_Click(object sender, EventArgs e)
-    {
-        Button2.Visible = true;
-        Label1.Visible = true;
-        usertxt.Visible = true;
-    }
-
-    protected void Button2_Click(object sender, EventArgs e)
-    {
-        string date = DateTime.Now.ToString();
-
-        LinkButton edit = sender as LinkButton;
-        GridViewRow editrow = edit.NamingContainer as GridViewRow;
-
-
-        string deleteimage = GridView1.DataKeys[editrow.RowIndex].Value.ToString();
-
-        string sqlmain2 = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
-        SqlConnection constr1 = new SqlConnection(sqlmain2);
-        constr1.Open();
-        SqlCommand com1 = new SqlCommand("update ImageData set ImageName =@name ,Date&Time =@date  where ImagePath = '" + deleteimage + "' ", constr1);
-
-        com1.Parameters.AddWithValue("@date", date);
-        com1.Parameters.AddWithValue("@name", usertxt.Text);
-        com1.ExecuteNonQuery();
-
-        Response.Write("Metadata is edited successfully!");
-        postback();  //display all values
-        constr1.Close();
-
-        Button2.Visible = false;
-        Label1.Visible = false;
-        usertxt.Visible = false;
-    }
+    
 }

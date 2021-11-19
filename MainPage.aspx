@@ -26,8 +26,7 @@
                                     <h1>Display images</h1>
                                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ImagePath" Width="296px" >
                                         <Columns>
-                                            <asp:BoundField HeaderText="ImageID" DataField="ImageID" />
-                                            <asp:ImageField HeaderText="Image" DataImageUrlField="ImagePath" ControlStyle-Height="160" ControlStyle-Width="170" >
+                                            <asp:ImageField HeaderText="Image" DataImageUrlField="ImagePath" ControlStyle-Height="260" ControlStyle-Width="280" >
 
 <ControlStyle Height="160px" Width="170px"></ControlStyle>
 
@@ -43,23 +42,14 @@
                                                  <ItemTemplate>
                                                      <asp:LinkButton ID="LinkButton2" runat="server" text="Delete" Onclick="LinkButton2_Click">Delete</asp:LinkButton>
                                                  </ItemTemplate>
-                                             </asp:TemplateField>
-
-                                            <asp:TemplateField HeaderText="Edit">
-                                                 <ItemTemplate>
-                                                     <asp:LinkButton ID="LinkButton3" runat="server" text="Edit" Onclick="LinkButton3_Click">Edit</asp:LinkButton>
-                                                 </ItemTemplate>
-                                             </asp:TemplateField>
+                                             </asp:TemplateField>                                           
              
                                         </Columns>
                                         <EmptyDataTemplate>
                                             ImageName
                                         </EmptyDataTemplate>
                                     </asp:GridView>
-                                    <asp:Label ID="Label1" runat="server" Text="Edit username   :"></asp:Label>
-                                    &nbsp;<asp:TextBox ID="usertxt" runat="server" Width="225px"></asp:TextBox>
-                                    <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Update" />
-                                </td>
+                                    &nbsp;</td>
                                 <td>
                                     <asp:Button ID="Button1" runat="server" Text="View " Width="105px" OnClick="Button1_Click" Height="41px" />
                                     <br />

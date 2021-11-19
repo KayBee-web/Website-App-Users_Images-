@@ -13,8 +13,10 @@
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ImageID" DataSourceID="SqlDataSourceMD">
                 <Columns>
                     <asp:BoundField DataField="ImageID" HeaderText="ImageID" InsertVisible="False" ReadOnly="True" SortExpression="ImageID" />
+                    <asp:BoundField DataField="UserName" HeaderText="UserName" SortExpression="UserName" />
                     <asp:BoundField DataField="ImageName" HeaderText="ImageName" SortExpression="ImageName" />
                     <asp:BoundField DataField="ImagePath" HeaderText="ImagePath" SortExpression="ImagePath" />
+                    
                     <asp:BoundField DataField="Date&amp;Time" HeaderText="Date&amp;Time" SortExpression="Date&amp;Time" />
                     
                 </Columns>

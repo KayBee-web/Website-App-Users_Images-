@@ -36,7 +36,7 @@ public partial class Log_In : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-       
+        Session["Username"] = usernametxt.Text;
         con.Open();
         string checkuser = "select count(*) from UserData where UserName = '" + usernametxt.Text + "'";
         SqlCommand com = new SqlCommand(checkuser, con);
@@ -53,10 +53,9 @@ public partial class Log_In : System.Web.UI.Page
 
             if (Decryption(password) == passwordtxt.Text)
             {
-                Session["New"] = usernametxt.Text;
                 Response.Redirect("UserImages.aspx");
                 Response.Write("password is correct!");
-
+                
             }
             else
             {
@@ -67,6 +66,7 @@ public partial class Log_In : System.Web.UI.Page
         else
         {
             Response.Write("Username not found!");
+            usernametxt.Text = "";
         }
 
     }

@@ -39,6 +39,9 @@
         <div>
         </div>
         <asp:HyperLink ID="HyperLink1" runat="server" Font-Bold="True" Font-Size="15pt" ForeColor="Blue" NavigateUrl="~/MainPage.aspx">Click to View and Share pictures</asp:HyperLink>
+        <p>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Log_In.aspx">Back</asp:HyperLink>
+        </p>
     </form>
 </body>
 </html>

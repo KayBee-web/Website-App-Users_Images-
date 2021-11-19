@@ -13,12 +13,12 @@ public partial class UserImages : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
     }
-
+    
     protected void Button1_Click(object sender, EventArgs e)
     {
-    string date = DateTime.Now.ToString(); 
+    string date = DateTime.Now.ToString();
          if (UpLoadImage.HasFile )
          {
             string imageextension = System.IO.Path.GetExtension(UpLoadImage.FileName);
@@ -33,12 +33,15 @@ public partial class UserImages : System.Web.UI.Page
 
                 con.Open();
 
-                string sqlimg = "insert into ImageData([ImageName],[ImagePath],[Date&Time]) values(@name,@path,@date)";
+                string sqlimg = "insert into ImageData([UserName],[ImageName],[ImagePath],[Date&Time]) values(@User,@name,@path,@date)";
                 SqlCommand com = new SqlCommand(sqlimg, con);
-
-                com.Parameters.AddWithValue("@name", savedimage);
-                com.Parameters.AddWithValue("@path", imagepath);
-                com.Parameters.AddWithValue("@date", date);
+                
+                    com.Parameters.AddWithValue("@User", Session["Username"].ToString());
+                    com.Parameters.AddWithValue("@name", savedimage);
+                    com.Parameters.AddWithValue("@path", imagepath);
+                    com.Parameters.AddWithValue("@date", date);
+            
+               
 
                 com.ExecuteNonQuery();
 
