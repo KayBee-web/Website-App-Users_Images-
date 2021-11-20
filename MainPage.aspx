@@ -52,7 +52,7 @@
 
                                             <asp:TemplateField HeaderText="Share">
                                                 <ItemTemplate>
-                                                     <asp:LinkButton ID="LinkButton4" runat="server" text="Share" Onclick="LinkButton4_Click">Share</asp:LinkButton>
+                                                     <asp:LinkButton ID="LinkButton4" runat="server" text="Share" Onclick="LinkButton4_Click">Share</asp:LinkButton>                                                   
                                                  </ItemTemplate>
                                              </asp:TemplateField>
              
@@ -67,6 +67,7 @@
                                     <br />
                                     <br />
                                     <br />
+                                    <asp:Button ID="Button1" runat="server" Height="38px" OnClick="Button1_Click" Text="View Shared Pictures" Width="131px" />
                                     <br />
                                     <br />
                                 </td>

@@ -40,8 +40,8 @@ public partial class Registration : System.Web.UI.Page
 
         protected void Button1_Click(object sender, EventArgs e)
     {
-        
-        
+
+        string date = DateTime.Now.ToString();  //get current date and time
         Guid newguid = Guid.NewGuid();   //generate values automatically.
 
         try
@@ -50,13 +50,14 @@ public partial class Registration : System.Web.UI.Page
 
             con.Open();
 
-            string register = "insert into UserData(ID,UserName,Email,Password) values(@id,@username,@email,@pass)";
+            string register = "insert into UserData(ID,UserName,Email,Password,Date) values(@id,@username,@email,@pass,@date)";
             SqlCommand com = new SqlCommand(register, con);
 
             com.Parameters.AddWithValue("@id", newguid.ToString());
             com.Parameters.AddWithValue("@username", Usernametxt.Text);
             com.Parameters.AddWithValue("@email", Emailtxt.Text);
             com.Parameters.AddWithValue("@pass", Encryption(Passwordtxt.Text));
+            com.Parameters.AddWithValue("@date", date);
 
             com.ExecuteNonQuery();
 

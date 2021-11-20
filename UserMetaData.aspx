@@ -20,17 +20,14 @@
                     
                     <asp:BoundField DataField="Date&amp;Time" HeaderText="Date&amp;Time" SortExpression="Date&amp;Time" />
                     
-                    <asp:TemplateField HeaderText="View_Image">
-                                                 <ItemTemplate>
-                                                     <asp:LinkButton ID="LinkButton1" runat="server" text="View_Image" Onclick="LinkButton1_Click">View_Image</asp:LinkButton>
-                                                 </ItemTemplate>                                        
-                    </asp:TemplateField>
+                    <asp:BoundField DataField="SharedImage" HeaderText="SharedImage" SortExpression="SharedImage" />
                     
                 </Columns>
             </asp:GridView>
         </div>
         <p>
             &nbsp;</p>
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="User Photos" Width="94px" />
     </form>
 </body>
 </html>

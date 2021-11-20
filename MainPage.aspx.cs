@@ -14,22 +14,26 @@ public partial class View_n_Share : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-            string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
-            SqlConnection con = new SqlConnection(sqlmain);
+        postback();
+    }
+    private void postback()
+    {
+        string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
+        SqlConnection con = new SqlConnection(sqlmain);
 
-            con.Open();
+        con.Open();
 
-        string view = "select * from ImageData where UserName = " + Session["Username"].ToString() ;
+        string view = "select * from ImageData where UserName = " + Session["Username"].ToString();
 
-            SqlCommand com = new SqlCommand(view, con);
-            SqlDataAdapter info = new SqlDataAdapter(com);
-            info.SelectCommand = com;
-            DataTable ds = new DataTable();
-            info.Fill(ds);
-            GridView1.DataSource = ds;
-            GridView1.DataBind();
-            con.Close();
+        SqlCommand com = new SqlCommand(view, con);
+        SqlDataAdapter info = new SqlDataAdapter(com);
+        info.SelectCommand = com;
+        DataTable ds = new DataTable();
+        info.Fill(ds);
+        GridView1.DataSource = ds;
+        GridView1.DataBind();
 
+        con.Close();
     }
 
 
@@ -65,6 +69,8 @@ public partial class View_n_Share : System.Web.UI.Page
 
         Response.Write("Image and its Metadata is deleted successfully!");
         constr.Close();
+
+        postback();
     }
 
 
@@ -96,7 +102,8 @@ public partial class View_n_Share : System.Web.UI.Page
 
     protected void LinkButton4_Click(object sender, EventArgs e)
     {
-        string sharedimage = "ImageShared.jpg";
+        //this method is used to share images.
+        string imageshared = "SharedImage.jpg";
         LinkButton share = sender as LinkButton;
         GridViewRow sharerow = share.NamingContainer as GridViewRow;
 
@@ -108,14 +115,20 @@ public partial class View_n_Share : System.Web.UI.Page
 
         constr.Open();
 
-        string sqlimg = "insert into ImageData([SharedImage]) values(@shared)";
+        string sqlimg = "update ImageData set SharedImage = @shared where ImagePath = '"+shareimage+ "'";
         SqlCommand com = new SqlCommand(sqlimg, constr);
 
-        com.Parameters.AddWithValue("@shared", sharedimage);
+        com.Parameters.AddWithValue("@shared",imageshared);
         com.ExecuteNonQuery();
 
         Response.Write("Image and it path is shared successfully!");
 
         constr.Close();
+    }
+
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("SharedImages.aspx");
     }
 }

@@ -17,7 +17,7 @@ public partial class UserMetaData : System.Web.UI.Page
 
     }
 
-    protected void LinkButton1_Click(object sender, EventArgs e)
+    protected void Button1_Click(object sender, EventArgs e)
     {
         Response.Redirect("MainPage.aspx");
     }

@@ -61,7 +61,8 @@
                 <td class="auto-style4">
                     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Log_In" Width="172px" />
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
         </table>
     </form>
