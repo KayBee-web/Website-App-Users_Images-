@@ -20,6 +20,7 @@ public partial class Log_In : System.Web.UI.Page
 
     public string Decryption(string encrstring)
     {
+       
         byte[] b;
         string decrypted;
         try
@@ -36,7 +37,9 @@ public partial class Log_In : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        Session["Username"] = usernametxt.Text;
+        try
+        { 
+      Session["Username"] = usernametxt.Text;
         con.Open();
         string checkuser = "select count(*) from UserData where UserName = '" + usernametxt.Text + "'";
         SqlCommand com = new SqlCommand(checkuser, con);
@@ -68,8 +71,12 @@ public partial class Log_In : System.Web.UI.Page
             Response.Write("Username not found!");
             usernametxt.Text = "";
         }
-
+        }
+        catch (SqlException error)
+        {
+            Response.Write(error.Message);
+        }
     }
 
-    
+
 }

@@ -16,8 +16,10 @@ public partial class View_n_Share : System.Web.UI.Page
     {
         postback();
     }
-    private void postback()
+    public void postback()
     {
+        try
+        { 
         string sqlmain = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
         SqlConnection con = new SqlConnection(sqlmain);
 
@@ -34,11 +36,20 @@ public partial class View_n_Share : System.Web.UI.Page
         GridView1.DataBind();
 
         con.Close();
-    }
+        }
+        catch (SqlException error)
+        {
+            Response.Write(error.Message);
+        }
+    
+
+}
 
 
-    protected void LinkButton1_Click(object sender, EventArgs e)
+protected void LinkButton1_Click(object sender, EventArgs e)
     {
+        try
+        { 
         LinkButton download = sender as LinkButton;
         GridViewRow gridrow = download.NamingContainer as GridViewRow;
         string downloadimage = GridView1.DataKeys[gridrow.RowIndex].Value.ToString();
@@ -46,13 +57,19 @@ public partial class View_n_Share : System.Web.UI.Page
         Response.AddHeader("Content-Disposition", "filename=\"" + downloadimage + "\"");
         Response.TransmitFile(Server.MapPath(downloadimage));
         Response.End();
+        }
+        catch (SqlException error)
+        {
+            Response.Write(error.Message);
+        }
 
-    
     }
 
 
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
+        try
+        { 
         
         LinkButton delete = sender as LinkButton;
         GridViewRow deleterow = delete.NamingContainer as GridViewRow;
@@ -71,12 +88,19 @@ public partial class View_n_Share : System.Web.UI.Page
         constr.Close();
 
         postback();
+        }
+        catch (SqlException error)
+        {
+            Response.Write(error.Message);
+        }
     }
 
 
 
     protected void LinkButton3_Click(object sender, EventArgs e)
     {
+        try
+        { 
         LinkButton property = sender as LinkButton;
         GridViewRow propertyrow = property.NamingContainer as GridViewRow;
 
@@ -86,7 +110,7 @@ public partial class View_n_Share : System.Web.UI.Page
         string sqlmain1 = ConfigurationManager.ConnectionStrings["ConnectionString2"].ConnectionString;
         SqlConnection constr = new SqlConnection(sqlmain1);
         constr.Open();
-        SqlCommand com = new SqlCommand("select * from ImageData where ImagePath = '" + propertyimage + "'", constr);
+        SqlCommand com = new SqlCommand("select * from ImageData where UserName = " + Session["Username"].ToString(), constr);
 
         SqlDataAdapter prop = new SqlDataAdapter(com);
         prop.SelectCommand = com;
@@ -98,10 +122,17 @@ public partial class View_n_Share : System.Web.UI.Page
         constr.Close();
 
         Response.Redirect("UserMetaData.aspx");
+        }
+        catch (SqlException error)
+        {
+            Response.Write(error.Message);
+        }
     }
 
     protected void LinkButton4_Click(object sender, EventArgs e)
     {
+        try
+        { 
         //this method is used to share images.
         string imageshared = "SharedImage.jpg";
         LinkButton share = sender as LinkButton;
@@ -124,6 +155,11 @@ public partial class View_n_Share : System.Web.UI.Page
         Response.Write("Image and it path is shared successfully!");
 
         constr.Close();
+        }
+        catch (SqlException error)
+        {
+            Response.Write(error.Message);
+        }
     }
 
 
